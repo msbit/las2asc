@@ -23,12 +23,15 @@ func main() {
 	minEasting := math.MaxFloat64
 	maxNorthing := -math.MaxFloat64
 	minNorthing := math.MaxFloat64
+	maxHeight := -math.MaxFloat64
+	minHeight := math.MaxFloat64
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		var easting float64
 		var northing float64
-		if _, err := fmt.Sscanf(scanner.Text(), "%f %f", &easting, &northing); err != nil {
+		var height float64
+		if _, err := fmt.Sscanf(scanner.Text(), "%f %f %f", &easting, &northing, &height); err != nil {
 			log.Fatal(err)
 		}
 
@@ -36,12 +39,14 @@ func main() {
 		minEasting = math.Min(minEasting, easting)
 		maxNorthing = math.Max(maxNorthing, northing)
 		minNorthing = math.Min(minNorthing, northing)
+		maxHeight = math.Max(maxHeight, height)
+		minHeight = math.Min(minHeight, height)
 	}
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("ll: %10.10f,%10.10f\n", minEasting, minNorthing)
-	fmt.Printf("tr: %10.10f,%10.10f\n", maxEasting, maxNorthing)
+	fmt.Printf("%10.10f,%10.10f,%10.10f\n", minEasting, minNorthing, minHeight)
+	fmt.Printf("%10.10f,%10.10f,%10.10f\n", maxEasting, maxNorthing, maxHeight)
 }
