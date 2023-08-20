@@ -203,10 +203,10 @@ func main() {
 	fmt.Fprintf(w, "nodata_value %.3f\n", nodata_value)
 
 	output_start := time.Now()
-	for n := nrows - 1.0; n >= 0.0; n -= 1.0 {
-		for e := 0.0; e < ncols; e += 1.0 {
+	for n := nrows - cellsize; n >= 0.0; n -= cellsize {
+		for e := 0.0; e < ncols; e += cellsize {
 			ll_find := point2{ll.e + e, ll.n + n}
-			tr_find := point2{ll.e + e + 1.0, ll.n + n + 1.0}
+			tr_find := point2{ll.e + e + cellsize, ll.n + n + cellsize}
 			points := q.queryRange(ll_find, tr_find)
 			h := math.MaxFloat64
 			if len(points) == 0 {
