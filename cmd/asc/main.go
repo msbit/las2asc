@@ -193,18 +193,16 @@ func main() {
 	//  header
 	e_range := tr.e - ll.e
 	n_range := tr.n - ll.n
-	ncols := e_range / cellsize
-	nrows := n_range / cellsize
-	fmt.Fprintf(w, "ncols %d\n", int(ncols))
-	fmt.Fprintf(w, "nrows %d\n", int(nrows))
+	fmt.Fprintf(w, "ncols %d\n", int(e_range / cellsize))
+	fmt.Fprintf(w, "nrows %d\n", int(n_range / cellsize))
 	fmt.Fprintf(w, "xllcorner %f\n", ll.e)
 	fmt.Fprintf(w, "yllcorner %f\n", ll.n)
 	fmt.Fprintf(w, "cellsize %f\n", cellsize)
 	fmt.Fprintf(w, "nodata_value %.3f\n", nodata_value)
 
 	output_start := time.Now()
-	for n := nrows - cellsize; n >= 0.0; n -= cellsize {
-		for e := 0.0; e < ncols; e += cellsize {
+	for n := n_range - cellsize; n >= 0.0; n -= cellsize {
+		for e := 0.0; e < e_range; e += cellsize {
 			ll_find := point2{ll.e + e, ll.n + n}
 			tr_find := point2{ll.e + e + cellsize, ll.n + n + cellsize}
 			points := q.queryRange(ll_find, tr_find)
