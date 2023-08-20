@@ -166,7 +166,6 @@ func main() {
 	q := newQuad(ll, tr)
 	log.Printf("time to make quad: %v\n", time.Now().Sub(make_start))
 
-	var points []point3
 	populate_start := time.Now()
 	scanner := bufio.NewScanner(in)
 	for scanner.Scan() {
@@ -175,7 +174,6 @@ func main() {
 			log.Fatal(err)
 		}
 		q.add(p)
-		points = append(points, p)
 	}
 	log.Printf("time to populate quad: %v\n", time.Now().Sub(populate_start))
 
